@@ -1,0 +1,47 @@
+﻿<Window x:Class="calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:calculator"
+        mc:Ignorable="d"
+        Title="Calculator" SizeToContent="WidthAndHeight" Background="#FFE6E6E6">
+    <Grid Margin="16,16,16,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="88"/>
+            <RowDefinition Height="84"/>
+            <RowDefinition Height="84"/>
+            <RowDefinition Height="84"/>
+            <RowDefinition Height="84"/>
+            <RowDefinition Height="84"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="84"/>
+            <ColumnDefinition Width="84"/>
+            <ColumnDefinition Width="84"/>
+            <ColumnDefinition Width="84"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Calculator" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Height="42" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="Output" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="38" Text="Output" TextAlignment="Right" BorderThickness="0,0,1,0" Grid.ColumnSpan="4" BorderBrush="{x:Null}" Grid.Row="1" Background="{x:Null}" FontWeight="Bold"/>
+        <Button x:Name="Num7" Content="7" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Row="3" FontWeight="Bold" Background="WhiteSmoke" BorderBrush="{x:Null}"/>
+        <Button x:Name="Clear" Content="C" VerticalAlignment="Top" FontSize="20" Height="84" Click="CalculatedButton_Click" Width="84" Grid.Row="2" Background="#FFEDEDED" BorderBrush="{x:Null}" HorizontalAlignment="Left"/>
+        <Button x:Name="Backspace" Content="Backspace" FontSize="20" Click="CalculatedButton_Click" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" BorderBrush="{x:Null}" Background="#FFEDEDED" VerticalAlignment="Center" HorizontalAlignment="Center" Width="168" Height="82"/>
+        <Button x:Name="Divide" Content="÷" VerticalAlignment="Top" FontSize="48" Height="84" Click="CalculatedButton_Click" Grid.Column="3" Grid.Row="2" Background="#FFEDEDED" BorderBrush="{x:Null}" Width="84" HorizontalAlignment="Left"/>
+        <Button x:Name="Multiply" Content="×" FontSize="48" Height="84" IsCancel="True" Click="CalculatedButton_Click" Grid.Column="3" Grid.Row="3" Background="#FFEDEDED" BorderBrush="{x:Null}" Width="84" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button x:Name="Subtract" Content="-" FontSize="48" Height="84" IsCancel="True" Click="CalculatedButton_Click" Grid.Column="3" Grid.Row="4" BorderBrush="{x:Null}" Width="84" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FFEDEDED"/>
+        <Button x:Name="Add" Content="+" FontSize="48" Height="84" IsCancel="True" Click="CalculatedButton_Click" Grid.Column="3" Grid.Row="5" BorderBrush="{x:Null}" Width="84" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FFEDEDED"/>
+        <Button x:Name="Equal" Content="=" FontSize="48" IsCancel="True" Click="CalculatedButton_Click" Grid.Column="3" Grid.Row="6" Height="84" Background="#FFEDEDED" BorderBrush="{x:Null}" Width="84" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button x:Name="Num8" Content="8" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Column="1" Grid.Row="3" FontWeight="Bold" Background="WhiteSmoke" BorderBrush="{x:Null}"/>
+        <Button x:Name="Num9" Content="9" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Column="2" Grid.Row="3" Background="WhiteSmoke" FontWeight="Bold" BorderBrush="{x:Null}"/>
+        <Button x:Name="Num4" Content="4" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Row="4" Background="WhiteSmoke" FontWeight="Bold" BorderBrush="{x:Null}"/>
+        <Button x:Name="Num5" Content="5" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Column="1" Grid.Row="4" Background="WhiteSmoke" FontWeight="Bold" BorderBrush="{x:Null}"/>
+        <Button x:Name="Num6" Content="6" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Column="2" Grid.Row="4" Background="WhiteSmoke" FontWeight="Bold" BorderBrush="{x:Null}"/>
+        <Button x:Name="Num1" Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Row="5" Background="WhiteSmoke" FontWeight="Bold" BorderBrush="{x:Null}"/>
+        <Button x:Name="Num2" Content="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Column="1" Grid.Row="5" Background="WhiteSmoke" FontWeight="Bold" BorderBrush="{x:Null}"/>
+        <Button x:Name="Num3" Content="3" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Column="2" Grid.Row="5" Background="WhiteSmoke" FontWeight="Bold" BorderBrush="{x:Null}"/>
+        <Button x:Name="Num0" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Column="1" Grid.Row="6" Background="WhiteSmoke" FontWeight="Bold" BorderBrush="{x:Null}"/>
+        <Button x:Name="Decimal" Content="." HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" Width="84" Height="84" Click="CalculatedButton_Click" Grid.Column="2" Grid.Row="6" Background="#FFEDEDED" BorderBrush="{x:Null}"/>
+
+    </Grid>
+</Window>
