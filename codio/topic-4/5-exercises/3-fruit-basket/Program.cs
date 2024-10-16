@@ -17,8 +17,10 @@ namespace exercises
     enum TUIOption
     {
         PrintOptions,
+        PrintOptionsReverse,
         AddFruit,
         TotalFruit,
+        ReplaceApples,
         Quit,
     }
 
@@ -44,11 +46,15 @@ namespace exercises
             switch (option)
             {
                 case TUIOption.PrintOptions:
-                    return "Show stored fruits (alphabetically)";
+                    return "Show stored fruits (ascending)";
+                case TUIOption.PrintOptionsReverse:
+                    return "Show stored fruits (descending)";
                 case TUIOption.AddFruit:
                     return "Add a fruit...";
                 case TUIOption.TotalFruit:
                     return "Get total number of fruits...";
+                case TUIOption.ReplaceApples:
+                    return "Replace all apples with unique fruit";
                 case TUIOption.Quit:
                     return "Quit";
                 default:
@@ -75,12 +81,13 @@ namespace exercises
             }
         }
 
-        static void PrintBasicFruitsStored()
+        static void PrintBasicFruitsStored(Comparison<string> sort)
         {
             string fruitsJoined = "No fruits just yet.";
 
             if (Program.store.Count > 0)
             {
+                Program.store.Sort(sort);
                 fruitsJoined = string.Join(", ", Program.store);
             }
 
@@ -112,7 +119,10 @@ namespace exercises
             switch (option)
             {
                 case TUIOption.PrintOptions:
-                    Program.PrintBasicFruitsStored();
+                    Program.PrintBasicFruitsStored((a, b) => a.CompareTo(b));
+                    break;
+                case TUIOption.PrintOptionsReverse:
+                    Program.PrintBasicFruitsStored((a, b) => b.CompareTo(a));
                     break;
                 case TUIOption.AddFruit:
                     Console.WriteLine("Allowed fruit options: {0}", string.Join(", ", Program.ALLOWED_FRUITS));
@@ -151,6 +161,27 @@ namespace exercises
                     }
 
                     break;
+                case TUIOption.ReplaceApples:
+                    string uniqueFruit = "";
+
+                    foreach (string fruit in Program.ALLOWED_FRUITS)
+                    {
+                        if (fruit != "apple" && !Program.store.Contains(fruit))
+                        {
+                            uniqueFruit = fruit;
+                        }
+                    }
+
+                    for (int i = 0; i < Program.store.Count; i++)
+                    {
+                        if (Program.store[i].ToLower() == "apple")
+                        {
+                            Program.store[i] = uniqueFruit;
+                        }
+                    }
+
+                    Console.WriteLine("Replaced all apples with unique fruit '{0}'.", uniqueFruit);
+                    break;
                 case TUIOption.Quit:
                     Console.WriteLine("Quitting, thank you and goodbye.");
                     exitLock = true;
@@ -186,8 +217,10 @@ namespace exercises
 
                 TUIOption[] options = new TUIOption[] {
                     TUIOption.PrintOptions,
+                    TUIOption.PrintOptionsReverse,
                     TUIOption.AddFruit,
                     TUIOption.TotalFruit,
+                    TUIOption.ReplaceApples,
                     TUIOption.Quit
                 };
 
