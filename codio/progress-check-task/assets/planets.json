@@ -1,0 +1,108 @@
+{
+    "planets": {
+        "Mercury": {
+            "metadata": {
+                "diameter_km": 4879,
+                "distance_from_sun_km": 5790,
+                "orbital_period_days": 88,
+                "number_of_moons": 0
+            },
+            "facts": [
+                "Surface temperature: 430°C (day), -180°C (night)",
+                "Thin atmosphere composed mostly of oxygen, sodium, hydrogen, helium, and potassium.",
+                "Orbital inclination: 7 degrees"
+            ]
+        },
+        "Venus": {
+            "metadata": {
+                "diameter_km": 12104,
+                "distance_from_sun_km": 10820,
+                "orbital_period_days": 225,
+                "number_of_moons": 0
+            },
+            "facts": [
+                "Surface temperature: 460°C",
+                "Thick atmosphere mainly of carbon dioxide with clouds of sulfuric acid.",
+                "Rotation period: 243 days (retrograde)"
+            ]
+        },
+        "Earth": {
+            "metadata": {
+                "diameter_km": 12756,
+                "distance_from_sun_km": 14960,
+                "orbital_period_days": 365,
+                "number_of_moons": 1
+            },
+            "facts": [
+                "Surface temperature: 15°C (average)",
+                "Atmosphere: Nitrogen (78%), Oxygen (21%), and trace gases.",
+                "Habitable: Yes"
+            ]
+        },
+        "Mars": {
+            "metadata": {
+                "diameter_km": 6779,
+                "distance_from_sun_km": 22790,
+                "orbital_period_days": 687,
+                "number_of_moons": 2
+            },
+            "facts": [
+                "Surface temperature: -63°C (average)",
+                "Thin atmosphere composed mostly of carbon dioxide.",
+                "Home to the largest volcano and canyon in the solar system."
+            ]
+        },
+        "Jupiter": {
+            "metadata": {
+                "diameter_km": 139820,
+                "distance_from_sun_km": 77850,
+                "orbital_period_days": 4333,
+                "number_of_moons": 79
+            },
+            "facts": [
+                "Surface temperature: -108°C",
+                "Mainly hydrogen and helium, with possible ammonia clouds.",
+                "Great Red Spot: A giant storm larger than Earth."
+            ]
+        },
+        "Saturn": {
+            "metadata": {
+                "diameter_km": 116460,
+                "distance_from_sun_km": 142940,
+                "orbital_period_days": 10759,
+                "number_of_moons": 83
+            },
+            "facts": [
+                "Surface temperature: -139°C",
+                "Mostly hydrogen and helium.",
+                "Rings made up of ice and rock particles."
+            ]
+        },
+        "Uranus": {
+            "metadata": {
+                "diameter_km": 50724,
+                "distance_from_sun_km": 287100,
+                "orbital_period_days": 30687,
+                "number_of_moons": 27
+            },
+            "facts": [
+                "Surface temperature: -197°C",
+                "Hydrogen, helium, and methane give it a blue color.",
+                "Rotates on its side (98 degrees axial tilt)."
+            ]
+        },
+        "Neptune": {
+            "metadata": {
+                "diameter_km": 49244,
+                "distance_from_sun_km": 449500,
+                "orbital_period_days": 60190,
+                "number_of_moons": 14
+            },
+            "facts": [
+                "Surface temperature: -214°C",
+                "Hydrogen, helium, and methane.",
+                "Strongest winds in the solar system."
+            ]
+        }
+    }
+}
