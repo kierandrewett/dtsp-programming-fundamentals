@@ -103,6 +103,21 @@
                 "Hydrogen, helium, and methane.",
                 "Strongest winds in the solar system."
             ]
+        },
+        "Pluto": {
+            "dwarf": true,
+            "dwarf_since": "24/08/2006",
+            "metadata": {
+                "diameter_km": 2376,
+                "distance_from_sun_km": 590637627,
+                "orbital_period_days": 90560,
+                "number_of_moons": 5
+            },
+            "facts": [
+                "Surface temperature: -229°C",
+                "Primarily composed of ice and rock.",
+                "Has a heart-shaped glacier called Sputnik Planitia."
+            ]
         }
     }
 }

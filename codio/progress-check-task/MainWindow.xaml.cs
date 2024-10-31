@@ -12,80 +12,30 @@ using System.Text.Json;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
+using System.Numerics;
 
 namespace progress_check_task
 {
-    public class PlanetData
-    {
-        public Dictionary<string, Planet> planets { get; set; }
-    }
-
-    public class Planet
-    {
-        public Metadata metadata { get; set; }
-        public List<string> facts { get; set; }
-    }
-
-    public class Metadata
-    {
-        public int diameter_km { get; set; }
-        public int distance_from_sun_km { get; set; }
-        public int orbital_period_days { get; set; }
-        public int number_of_moons { get; set; }
-    }
-
-    public static class PlanetsJSONReader
-    {
-        public static T Read<T>(string filePath)
-        { 
-            string text = File.ReadAllText(filePath);
-            return JsonSerializer.Deserialize<T>(text)!;
-
-        }
-    }
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public PlanetData data;
+        public StorageController store;
 
         public void InitPlanets()
         {
-            string planetsPath = System.IO.Path.Combine(
-                Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName,
-                "assets",
-                "planets.json"
-            );
-
-            string json = File.ReadAllText(planetsPath);
-
-            Debug.WriteLine(json);
-
-            try
-            {
-                this.data = JsonSerializer.Deserialize<PlanetData>(json);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error deserialising JSON: {ex.Message}");
-            }
-
-            if (this.data?.planets != null)
+            if (this.store.data?.planets != null)
             {
                 PlanetsComboBox.Items.Clear();
 
-                foreach (var planet in this.data.planets)
+                foreach (var planet in this.store.data.planets)
                 {
                     PlanetsComboBox.Items.Add(planet.Key);
                 }
 
                 PlanetsComboBox.SelectedIndex = 0;
-            }
-            else
-            {
-                MessageBox.Show("Planet data could not be read or is missing.");
             }
         }
 
@@ -100,6 +50,8 @@ namespace progress_check_task
 
         public MainWindow()
         {
+            this.store = new StorageController();
+
             InitializeComponent();
             InitPlanets();
             UpdatePlanetRockerButtons();
@@ -112,7 +64,7 @@ namespace progress_check_task
             string planetSelection = (string)PlanetsComboBox.SelectedValue;
             Planet planet;
 
-            if (this.data.planets.TryGetValue(planetSelection, out planet))
+            if (this.store.data.planets.TryGetValue(planetSelection, out planet))
             {
                 Debug.WriteLine($"got planet {planetSelection}");
 
@@ -127,6 +79,23 @@ namespace progress_check_task
                     $"Distance from sun (km): {distanceFromSun:n0}km\n" +
                     $"Orbital period in days: {planet.metadata.orbital_period_days:n0}\n" +
                     $"Number of moons: {planet.metadata.number_of_moons:n0}\n";
+
+                if (planet.dwarf)
+                {
+                    MetadataLabel.Content += $"\n{planetSelection} is not considered to be a planet, as it has been designated as dwarf planet status";
+
+                    if (planet.dwarf_since != null)
+                    {
+                        MetadataLabel.Content += $" since {planet.dwarf_since}.";
+                    } else
+                    {
+                        MetadataLabel.Content += ".";
+                    }
+                }
+                else
+                {
+                    MetadataLabel.Content += $"\n{planetSelection} is a planet.";
+                }
 
                 foreach (string fact in planet.facts)
                 {
@@ -147,6 +116,113 @@ namespace progress_check_task
         private void NextPlanet_Click(object sender, RoutedEventArgs e)
         {
             PlanetsComboBox.SelectedIndex++;
+        }
+
+        private void AskQuestionButton_Click(object sender, RoutedEventArgs e)
+        {
+            QuestionWindow win = new QuestionWindow();
+            win.ShowDialog();
+        }
+
+        private void AnswerPrompt(string input, string[] keywords, Func<string, bool> callback)
+        {
+            foreach (string keyword in keywords)
+            {
+                if (input.Contains(Regex.Replace(keyword.Trim().ToLower(), @"\s", string.Empty)))
+                {
+                    if (callback(keyword))
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void AnswerCommonFact(string input, string planetName)
+        {
+            bool didReply = false;
+            Planet planet = this.store.data.planets[planetName];
+
+            AnswerPrompt(input, new string[] { "diameter", "big", "size", "large", "small", "radius", "radii", "length", "massive" }, keyword =>
+            {
+                int size = planet.metadata.diameter_km;
+
+                if (keyword == "radius" || keyword == "radii")
+                {
+                    keyword = "radius";
+                    size = size / 2;
+                } else if (keyword != "diameter" || keyword != "radius" || keyword != "radii" || keyword != "size")
+                {
+                    keyword = "diameter";
+                }
+
+                MessageBox.Show($"The {keyword} of {planetName} is " + size + "km", planetName, MessageBoxButton.OK, MessageBoxImage.Information);
+                didReply = true;
+
+                return true;
+            });
+
+            AnswerPrompt(input, new string[] { "from sun", "from the sun", "distance from sun", "distance sun", "distance", "far away" }, keyword =>
+            {
+                int dist = planet.metadata.distance_from_sun_km;
+
+                MessageBox.Show($"{planetName} is " + dist + "km away from the sun.", planetName, MessageBoxButton.OK, MessageBoxImage.Information);
+                didReply = true;
+
+                return true;
+            });
+
+            AnswerPrompt(input, new string[] { "orbital period", "year", "period", "orbital" }, keyword =>
+            {
+                int period = planet.metadata.orbital_period_days;
+
+                MessageBox.Show($"The orbital period of {planetName} is " + period + " days.", planetName, MessageBoxButton.OK, MessageBoxImage.Information);
+                didReply = true;
+
+                return true;
+            });
+
+            AnswerPrompt(input, new string[] { "moons", "planets" }, keyword =>
+            {
+                int moons = planet.metadata.number_of_moons;
+
+                MessageBox.Show($"{planetName} has " + moons + " moons.", planetName, MessageBoxButton.OK, MessageBoxImage.Information);
+                didReply = true;
+
+                return true;
+            });
+
+            AnswerPrompt(input, new string[] { "a planet", "is a planet", "is not a planet", "is dwarf", "planet", "dwarf" }, keyword =>
+            {
+                bool isDwarf = planet.dwarf;
+                string dwarfSince = planet.dwarf_since;
+
+                if (isDwarf)
+                {
+                    MessageBox.Show($"{planetName} is not considered to be a planet, as it has been designated as a dwarf planet since {dwarfSince}.", planetName, MessageBoxButton.OK, MessageBoxImage.Information);
+                } else
+                {
+                    MessageBox.Show($"{planetName} is considered to be a planet.", planetName, MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+                didReply = true;
+
+                return true;
+            });
+
+            if (!didReply)
+            {
+                MessageBox.Show($"That question for {planetName} was unrecognised, please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void OnQuestionReceived(string input, string matchedPlanet)
+        {
+            PlanetsComboBox.SelectedValue = matchedPlanet;
+
+            string sanitisedInput = Regex.Replace(input.Trim().ToLower(), @"\s", string.Empty);
+
+            AnswerCommonFact(sanitisedInput, matchedPlanet);
         }
     }
 }

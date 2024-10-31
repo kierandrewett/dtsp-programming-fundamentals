@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:progress_check_task"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Planet Information" Height="450" Width="800" Icon="/icon.ico">
     <Grid>
         <Label Content="Planet Information" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="22"/>
         <ComboBox Name="PlanetsComboBox" HorizontalAlignment="Left" Margin="46,61,0,0" VerticalAlignment="Top" Width="195" SelectionChanged="PlanetsComboBox_SelectionChanged"/>
@@ -31,8 +31,9 @@
             </Button.RenderTransform>
         </Button>
         <Label x:Name="PlanetName" Content="" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label x:Name="FactsTitle" Content="" HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label x:Name="FactsLabel" Content="" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="FactsTitle" Content="" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label x:Name="FactsLabel" Content="" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top"/>
+        <Button Content="Ask a question" HorizontalAlignment="Left" Margin="205,20,0,0" VerticalAlignment="Top" Click="AskQuestionButton_Click"/>
 
     </Grid>
 </Window>
