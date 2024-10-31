@@ -7,33 +7,57 @@
         mc:Ignorable="d"
         Title="Planet Information" Height="450" Width="800" Icon="/icon.ico">
     <Grid>
-        <Label Content="Planet Information" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <ComboBox Name="PlanetsComboBox" HorizontalAlignment="Left" Margin="46,61,0,0" VerticalAlignment="Top" Width="195" SelectionChanged="PlanetsComboBox_SelectionChanged"/>
-        <Label x:Name="MetadataLabel" Content="" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="NextPlanet" Content="&gt;" HorizontalAlignment="Left" Margin="247,61,0,0" VerticalAlignment="Top" Height="22" RenderTransformOrigin="0.5,0.5" Width="24" Click="NextPlanet_Click">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleY="0"/>
-                    <RotateTransform/>
-                    <TranslateTransform Y="0"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Button x:Name="PrevPlanet" Content="&lt;" HorizontalAlignment="Left" Margin="16,61,0,0" VerticalAlignment="Top" Height="22" RenderTransformOrigin="0.5,0.5" Width="24" Click="PrevPlanet_Click">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleY="0"/>
-                    <RotateTransform/>
-                    <TranslateTransform Y="0"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Label x:Name="PlanetName" Content="" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label x:Name="FactsTitle" Content="" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Label x:Name="FactsLabel" Content="" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top"/>
-        <Button Content="Ask a question" HorizontalAlignment="Left" Margin="205,20,0,0" VerticalAlignment="Top" Click="AskQuestionButton_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
 
+        <Grid>
+            <Label Content="Planet Information" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="22"/>
+            <ComboBox Name="PlanetsComboBox" HorizontalAlignment="Left" Margin="46,61,0,0" VerticalAlignment="Top" Width="195" SelectionChanged="PlanetsComboBox_SelectionChanged"/>
+            <Label x:Name="MetadataLabel" Content="" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="NextPlanet" Content="&gt;" HorizontalAlignment="Left" Margin="247,61,0,0" VerticalAlignment="Top" Height="22" RenderTransformOrigin="0.5,0.5" Width="24" Click="NextPlanet_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button x:Name="PrevPlanet" Content="&lt;" HorizontalAlignment="Left" Margin="16,61,0,0" VerticalAlignment="Top" Height="22" RenderTransformOrigin="0.5,0.5" Width="24" Click="PrevPlanet_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Label x:Name="PlanetName" Content="" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="FactsTitle" Content="" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="FactsLabel" Content="" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Background="#0A000000">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+
+            </Grid.RowDefinitions>
+            <TextBox x:Name="QuestionInput" HorizontalAlignment="Left" TextWrapping="Wrap" Height="27" FontSize="14" Width="211" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <Button x:Name="SubmitButton" Content="Submit" HorizontalAlignment="Right" VerticalAlignment="Center" IsDefault="True" Click="SubmitButton_Click" Height="27" Width="64" Grid.Row="1" Margin="0,0,10,0"/>
+            <Label x:Name="ResponseLabel" Padding="10,10,10,10" VerticalAlignment="Top" Background="{x:Null}" Content="Ask a question:" />
+            <ListView x:Name="Response" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" Grid.Column="0" BorderBrush="{x:Null}" Padding="0,30,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Bottom">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </Window>
